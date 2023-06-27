@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import TableUsers from "./components/TableUsers";
 import ModalAddUser from "./components/ModalAddUser";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
@@ -29,6 +30,18 @@ const App = () => {
         <TableUsers />
       </Container>
       <ModalAddUser show={isShowModal} handleClose={handleCloseModal} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
