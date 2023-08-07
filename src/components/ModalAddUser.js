@@ -4,7 +4,7 @@ import { postCreateUser } from "../services/UserService";
 import { toast } from "react-toastify";
 
 const ModalAddUser = (props) => {
-  const { handleClose, show } = props;
+  const { handleClose, show, handleUpdateTable } = props;
   const [name, setName] = useState("");
   const [job, setJob] = useState("");
 
@@ -15,6 +15,7 @@ const ModalAddUser = (props) => {
       setName("");
       setJob("");
       toast.success("Create User sucessfully!");
+      handleUpdateTable({ first_name: name, id: res.id });
     } else {
       toast.error("Create User failed");
     }
