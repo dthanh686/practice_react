@@ -28,7 +28,12 @@ const ModalEditUser = (props) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Edit User</Modal.Title>
         </Modal.Header>
@@ -43,7 +48,6 @@ const ModalEditUser = (props) => {
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
-
             <Form.Group className="mb-3">
               <Form.Label>Job</Form.Label>
               <Form.Control
