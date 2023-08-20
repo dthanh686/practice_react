@@ -5,9 +5,10 @@ import { fetchAllUser } from "../services/UserService";
 import ReactPaginate from "react-paginate";
 import ModalAddUser from "./ModalAddUser";
 import ModalEditUser from "./ModalEditUser";
+import _ from "lodash";
 
 const TableUsers = (props) => {
-  const [listUsers, setListUses] = useState([]);
+  const [listUsers, setListUsers] = useState([]);
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isShowModal, setIsShowModal] = useState(false);
@@ -26,7 +27,7 @@ const TableUsers = (props) => {
   const getUsers = async (page) => {
     let res = await fetchAllUser(page);
     if (res && res.data) {
-      setListUses(res.data);
+      setListUsers(res.data);
       setTotalUsers(res.total);
       setTotalPages(res.total_pages);
     }
@@ -37,13 +38,19 @@ const TableUsers = (props) => {
   };
 
   const handleUpdateTable = (user) => {
-    setListUses([user, ...listUsers]);
+    setListUsers([user, ...listUsers]);
   };
 
   const handleEditUser = (user) => {
-    console.log(user);
     setIsEditUser(true);
     setDataUserEdit(user);
+  };
+
+  const handleUpdateUserFromModal = (user) => {
+    let cloneListUsers = _.cloneDeep(listUsers);
+    let index = listUsers.findIndex((item) => item.id === user.id);
+    cloneListUsers[index].first_name = user.first_name;
+    setListUsers(cloneListUsers);
   };
 
   return (
@@ -122,6 +129,7 @@ const TableUsers = (props) => {
         show={isEditUser}
         handleClose={handleCloseModal}
         dataUserEdit={dataUserEdit}
+        handleUpdateUserFromModal={handleUpdateUserFromModal}
       />
     </>
   );
